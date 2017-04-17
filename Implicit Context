@@ -114,6 +114,8 @@ some_function :: (pool: *Pool) -> () {
    // our new_context will be passed to any functions in the block defined by push_context
    push_context new_context {
        some_function_that_allocates_from_the_pool();
+       
+       // any functions in this block will allocate or free using our pool_allocator
    }
    
    // after this scope, the default allocator (global malloc) will be used again for any subsequent function calls 

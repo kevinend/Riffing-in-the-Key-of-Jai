@@ -39,8 +39,8 @@ some_function( 5, upper_limit );
 some_function( 5, 3 );
 
 // with the baking syntax above ($$), if the value passed to y is a compile time constant the compiler will generate a new function
-// without the branching and call that, improving runtime performance as well as reducing pressure on the instruction cache. So these calls in Jai would only branch in the case of using 
-// a variable such as 'upper_limit'
+// without the branching and call that, improving runtime performance as well as reducing pressure on the instruction cache. 
+// So these calls in Jai would only branch in the case of using a variable such as 'upper_limit'
 
 
 

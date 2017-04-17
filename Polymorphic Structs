@@ -4,7 +4,7 @@
 
 // A few simple examples:
 
-// Jai has a built in syntax for dynamic arrays, namely []
+// Jai has a built in syntax for dynamic arrays, namely [], so this implementation is not necessary
 Dynamic_Array :: struct (Elem_Type: type) {
     
     buffer: *Elem_Type;

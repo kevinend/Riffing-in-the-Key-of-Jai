@@ -21,7 +21,7 @@ fn main() -> () {
 // The compiler throws an error because once the function `take_ownership` runs, the destructor for x will run, freeing the memory
 // and making y a dangling pointer (no bueno). This is a powerful idea that is incredibly useful but can also become cumbersome.
 // Sometimes the borrow checker (the thing that actually throws the error within the compiler) can be a little too stringent, especially
-// when it comes to generic functions that makes working with this system cumbersome.
+// when it comes to generic functions that makes working with this system difficult.
 
 // I think the biggest benefit from the whole system is actually with respect to the function signatures.
 // At a glance, I know that `take_ownership` moves the box into its scope and will free it at the end. Therefore,

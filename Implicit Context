@@ -1,3 +1,119 @@
 // Jai passes an "invisible" parameter to all functions called "context", which Jon refers to as the implicit context
 // The implicit context is defined as follows:
 
+Allocator_Mode :: enum {
+    ALLOCATE: 0,
+    RESIZE:   1,
+    FREE:     2,
+    FREE_ALL  3
+};
+
+Allocator :: #type (mode: Allocator_Mode.strict, 
+                    old_size: s64, old_memory_pointer: *void,
+                    size: s64, allocator_data: *void, options: s64 ) -> *void
+
+Context :: struct {
+    thread_index: u32;
+    
+    user_index: u32;
+    user_data:  *void;
+    
+    allocator: Allocator;
+    allocator_data: *void;
+    
+    logger: Logger;         
+    logger_data: *void;
+};
+
+// ignoring all the fields of the Context except for allocator and allocator data for now
+
+
+// this struct is passed by reference to every caller of function
+// it is inherited from each other, in terms of the call graph tree, not in an OOP way
+// context parameter is passed from main into function1 (implicitly, not in formal parameter list)
+function1 :: () -> () {
+    function2();
+    return;
+}
+
+// parameter is passed again from function1 unto function2 (again implicitly)
+function2 :: () -> () {
+    function3();
+    return;
+}
+
+// parameter is passed again from function2 unto function3 (again implicitly)
+function3 :: () -> () {
+    // do whatever
+    return;
+}
+
+// the utility of the implicit context isn't apparent until you look at the definition of the function's alloc/free
+alloc :: () -> *void {
+    context.allocator( context.mode, context.old_size, context.old_memory_pointer, context.size, context.allocator_data, context.options );
+}
+
+// this definition allows you to set the allocator for a specific type and simply call the alloc function when you need to allocate
+// or free (free is defined similarily but I can't find the actual implementation)
+
+// take the example of allocating from a pool (THIS EXAMPLE IS NOT UNIQUE, this is similar to the one he used in his demonstration)
+DEFAULT_POOL_ALLOCATION_SIZE :: 65_536;  // initial allocation is 64k
+Pool :: struct {
+
+    alignment: u8;
+    
+    allocator: Allocator = pool_allocator;
+    allocator_data: *void;
+    
+    current: *void;
+    bytes_left: int;
+};
+
+// the allocator used by the pool is named "pool_allocator" which is user defined
+// it would just allocate a 64k block on initial allocation then slice it up as requests were made from the pool
+    
+// the pool_allocator function could be defined as follows:    
+// notice how it mirrors the definition of an Allocator stated above 
+pool_allocator :: (mode: Allocator_Mode.strict, old_size: s64, old_memory_pointer: *void,
+                   size: s64, allocator_data: *void, options: s64 ) -> *void {
+ 
+    pool, succ := cast(*Pool)allocator_data;
+    
+    // not given the correct allocator
+    if !succ {
+        return null;
+    }
+    
+    if mode == Allocator_Mode.ALLOCATE {
+        new_allocation: *void = get_pool_memory( pool, size );
+        return new_allocation;
+    }
+    else if mode == Allocator_Mode.RESIZE {
+        // handle resize
+    }
+    else if mode == Allocator_Mode.FREE {
+        // maybe error, or return null, you free in one fell swoop with a pool
+    }
+    else { // mode was FREE_ALL
+        release_pool( pool );
+        return null;
+    }
+}
+
+// to use the allocator, you must first have a pool to allocate from then you have to override the default context using push_context
+some_function :: (pool: *Pool) -> () {
+   
+   // need to either pass in a pool or define a new one 
+   
+   new_context := context; // copy the contents of the old context
+   new_context.allocator = pool.allocator; // now calls to alloc will call our custom pool allocator
+   new_context.allocator_data = pool;     // the pool we want to allocate out of 
+   
+   // our new_context will be passed to any functions in the block defined by push_context
+   push_context new_context {
+       some_function_that_allocates_from_the_pool();
+   }
+   
+   // after this scope, the default allocator (global malloc) will be used again for any subsequent function calls 
+}
+

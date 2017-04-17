@@ -25,11 +25,11 @@ Context :: struct {
     logger_data: *void;
 };
 
-// ignoring all the fields of the Context except for allocator and allocator data for now
+// i will be ignoring all the fields of the Context except for allocator and allocator data for now
 
 
-// this struct is passed by reference to every caller of function
-// it is inherited from each other, in terms of the call graph tree, not in an OOP way
+// this struct is passed by reference to every function call
+// a function inherits the context from its parent
 // context parameter is passed from main into function1 (implicitly, not in formal parameter list)
 function1 :: () -> () {
     function2();

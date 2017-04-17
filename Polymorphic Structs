@@ -1,0 +1,53 @@
+// Jai provides structs with parameters or polymorphic structs
+// The structs can be generic over types or integers, similar to C++ and D
+// These types are determined at COMPILE time, there is no runtime overhead for using a polymorphic struct
+
+// A few simple examples:
+
+// Jai has a built in syntax for dynamic arrays, namely []
+Dynamic_Array :: struct (Elem_Type: type) {
+    
+    buffer: *Elem_Type;
+    
+    count: int;
+    capacity: int;
+    
+    allocator: Allocator;
+    allocator_data: *void;
+};
+
+// Number of elements allowed in the stack are fixed at COMPILE time
+Fixed_Size_Stack :: struct (Elem_Type: type, N: int) {
+
+    data: [N] Elem_Type;
+}
+
+// Built on top of a dynamic array
+Variable_Size_Stack :: struct (Elem_Type: type) {
+
+    data: [] Elem_Type;
+}
+
+Hashmap :: struct (Key_Type: type, Value_Type: type) {
+
+    count: int;
+
+    // can define structs within other structs -- SOA means structure of arrays
+    Slot :: SOA struct {
+        occupancy_mask: bool;
+        key: Key_Type;
+        value: Value_Type;
+    };
+    
+    slots: [] Slots;
+    
+    allocator: Allocator;
+    allocator_data: *void;
+};
+
+// the SOA directive tells the compiler to represent an array of these structures like the following:
+//      occupancy_mask: [] bool;
+//      keys: [] Key_Type;
+//      values: [] Value_Type;
+
+// it is a less cumbersome away to represnt an array of structures as separate parallel arrays

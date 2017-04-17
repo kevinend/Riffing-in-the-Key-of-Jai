@@ -6,12 +6,12 @@ I am really interested in Jonathan Blow's new language JAI, which is currently u
 
 After watching a few of the videos, I think some of the features could be used to enhance the safety of the programs written in the language without going full boar like Rust. Those features were
 
-/ Key features:
-//  1. Implicit context
-//  2. Generic allocator/deallocator
-//  3. Polymorphic/Generic data structures
-//  4. Polymorphic/Generic functions
-//  5. #bake_values (compile-time partial function execution)
+Key features:
+  1. Implicit context
+  2. Generic allocator/deallocator
+  3. Polymorphic/Generic data structures
+  4. Polymorphic/Generic functions
+  5. #bake_values (compile-time partial function execution)
 
 
 This repository just contains some examples I intend to try out once the compiler is released (hopefully soon!).

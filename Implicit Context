@@ -30,6 +30,8 @@ Context :: struct {
 
 // this struct is passed by reference to every function call
 // a function inherits the context from its parent
+
+// Below, is a simple example to demonstrate what I mean when i say the context is inherited from parent function to child
 // context parameter is passed from main into function1 (implicitly, not in formal parameter list)
 function1 :: () -> () {
     function2();

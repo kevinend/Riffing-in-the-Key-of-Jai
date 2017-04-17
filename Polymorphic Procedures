@@ -1,0 +1,21 @@
+// Generic/Polymorphic procedures use $ to denote the authoritative type parameter for a function 
+// (The authoritative type is used for compile time error messages)
+
+// Monomorphic procedures
+add_int :: (x: int, y: int) -> int {
+  return x + y;
+}
+
+add_float :: (x: float, y: float) -> float {
+  return x + y;
+}
+
+add_float64 :: (x: float64, y: float64) -> float64 {
+  return x + y;
+}
+
+// Generic version 
+add :: (x: $T, y: T) -> T {
+  return x + y;
+}
+

@@ -1,0 +1,37 @@
+// In Jai, there is no explicit ownership like there is within Rust.
+// So in Rust you have the neat idea that when something is borrowed it can't be moved (since you could invalidate those references)
+
+// A simple example of Rust doing the right thing:
+
+// A Box type is a wrapper around heap allocated data, passing by value "moves" the data
+// You cannot move data that is being borrowed (referenced)
+fn take_ownership( x: Box<i32> ) -> i32 {
+    return *x;
+}
+
+fn main() -> () {
+    
+    let x: Box<i32> = Box::new( 10 );
+    let y: &Box<i32> = &x;    
+    
+    take_ownership( x );   // COMPILE time error -- cannot move out of borrowed content
+    return;
+}
+
+// The compiler throws an error because once the function `take_ownership` runs, the destructor for x will run, freeing the memory
+// and making y a dangling pointer (no bueno). This is a powerful idea that is incredibly useful but can also become cumbersome.
+// Sometimes the borrow checker (the thing that actually throws the error within the compiler) can be a little too stringent, especially
+// when it comes to generic functions that makes working with this system cumbersome.
+
+// I think the biggest benefit from the whole system is actually with respect to the function signatures.
+// At a glance, I know that `take_ownership` moves the box into its scope and will free it at the end. Therefore,
+// I cannot hold onto references to that data for longer than its lifetime. The compiler enforces this rule, but at the very
+// least you could avoid a lot of errors if you could easily see the ownership semantics at a glance.
+
+// Unfortunately, JAI does not currently have owning pointers.
+// I spoke to Jon about it, and he said they are still on the table before release but he wouldn't make any promises.
+// So I started to think about ways you could at least advertise ownership at the function boundary level. The easiest approach to
+// take was to look at simple data structures and their fundamental operations to see how you could deal with the idea of ownership.
+// (I still don't have a general approach to all functions, but ownership usually falls out of the use of different data structures and
+// their operations).
+

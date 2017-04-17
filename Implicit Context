@@ -72,7 +72,7 @@ Pool :: struct {
 };
 
 // the allocator used by the pool is named "pool_allocator" which is user defined
-// it would just allocate a 64k block on initial allocation then slice it up as requests were made from the pool
+// on initial allocation the pool returns a 64k block, subsequent allocations slice up that memory block according to the size requested
     
 // the pool_allocator function could be defined as follows:    
 // notice how it mirrors the definition of an Allocator stated above 

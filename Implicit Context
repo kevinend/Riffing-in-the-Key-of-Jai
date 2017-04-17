@@ -1,0 +1,3 @@
+// Jai passes an "invisible" parameter to all functions called "context", which Jon refers to as the implicit context
+// The implicit context is defined as follows:
+

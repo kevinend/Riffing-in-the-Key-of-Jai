@@ -8,9 +8,9 @@ After watching a few of the videos, I think some of the features could be used t
 
 Key features:
   1. Implicit context with custom allocators
-  3. Polymorphic/Generic data structures
-  4. Polymorphic/Generic functions
-  5. #bake_values (compile-time partial function execution)
+  2. Polymorphic/Generic data structures
+  3. Polymorphic/Generic functions
+  4. #bake_values (compile-time partial function execution)
 
 
 This repository just contains some examples I intend to try out once the compiler is released (hopefully soon!).

@@ -14,8 +14,30 @@ add_float64 :: (x: float64, y: float64) -> float64 {
   return x + y;
 }
 
-// Generic version 
+// Generic version -- the compiler generates a unique version based on the input argument's type
 add :: (x: $T, y: T) -> T {
   return x + y;
 }
+
+// Polymorphic functions are also generic over user defined types such as a Hashmap or Stack
+// take the classic stack operations push and pop -- as full blown generics
+push :: (element: T, stack: $T) {
+  // pushy stuff
+}
+
+pop :: (stack: $T) -> T {
+  // poppy stuff
+}
+
+// the problem with those definitions is that you can pass an integer into the functions and the program won't complain until run-time
+// so you can constrain the generics using a '/'. You can also "reach into" a type to retrieve subtypes of a type and that is what
+// T.Elem_Type is doing.
+push :: (stack: $T/Stack, element: T.Elem_Type) {
+  // pushy stuff
+}
+
+pop :: (stack: $T/Stack) -> T.Elem_Type {
+  // poppy stuff
+}
+
 

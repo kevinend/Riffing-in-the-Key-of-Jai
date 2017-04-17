@@ -4,6 +4,13 @@ After fooling around with Rust for a while, I really liked its approach to progr
 
 I am really interested in Jonathan Blow's new language JAI, which is currently unreleased. He has provided a series of videos showcasing features of the language. The language definitely follows closer to the procedural paradigm of C but with a lot of enhancements that make it a significant improvement over C and probably C++. 
 
-After watching a few of the videos, I think some of the features could be used to enhance the safety of the programs written in the language without going full boar like Rust.
+After watching a few of the videos, I think some of the features could be used to enhance the safety of the programs written in the language without going full boar like Rust. Those features were
+
+/ Key features:
+//  1. Polymorphic/Generic procedures
+//  2. Polymorphic/Generic data structures
+//  3. #bake_values (compile-time partial function execution)
+//  4. Implicit context 
+//  5. Generic allocator/deallocator
 
 This repository just contains some examples I intend to try out once the compiler is released (hopefully soon!).

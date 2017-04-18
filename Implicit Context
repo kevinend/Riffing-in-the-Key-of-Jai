@@ -118,6 +118,5 @@ some_function :: (pool: *Pool) -> () {
        // any functions in this block will allocate or free using our pool_allocator
    }
    
-   // after this scope, the default allocator (global malloc) will be used again for any subsequent function calls 
-}
+   // after this scope, the default allocator (global malloc) will be used again for any subsequent allocations
 

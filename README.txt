@@ -11,5 +11,4 @@ After watching a few of the videos, I think some of the features could be used t
   3. Polymorphic/Generic functions
   4. #bake_values (compile-time partial function execution)
 
-
-This repository just contains some examples I intend to try out once the compiler is released (hopefully soon!).
+This repository shows how we could use some of the above features to make ownership more explicit, while not sacrificing performance in handling both primitive data and owned data.

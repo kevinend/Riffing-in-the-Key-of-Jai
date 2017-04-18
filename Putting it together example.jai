@@ -85,9 +85,8 @@ owned_insert  :: #bake_values( owned = true );
 // insertion of primitive types since the function would only do steps 1,2,3 and 8 which is exactly how you would write this function
 // without generics (though you would have multiple fn definitions where subtle errors could come into play -- typos/wrong logic etc).
 
-// Also, in the case of owned data, you prevent leaking memory by properly freeing in the data at the correct time. You don't have 
-// to pass around function pointers explicitly as well since they are carried through with the implicit context. Finally, the correct
-// allocator is also used because you can set the one you want to use at any point within the program.
+// Also, in the case of owned data, you prevent leaking memory by properly freeing in the data at the correct time with the use
+// of the implicit context.
 
 // This was just an experimental first step into trying to make ownership more explicit. It is a far cry from the 
 // robustness provided by the Rust compiler, but it is definitely better than C and easier to handle than C++. For example, in the 

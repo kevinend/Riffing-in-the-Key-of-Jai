@@ -51,8 +51,8 @@ owned_push :: #bake_values push( owned = true );
 owned_pop  :: #bake_values pop( owned = true );
 
 // now for your function calls on your owning type you must call `owned_push` and `owned_pop` which doesn't really provide too much 
-// benefit here, other than the fact that it brings your attention to the fact that these stacks contain owned data. In the case of 
-// pop it may remind you that you need to free the data returned if you no longer need it.
+// benefit here, other than to remind you that the stacks contain owned data. In the case of 
+// pop it may help you remember to free the data returned if you no longer need it.
 
 /**** A better example of the basic principle would be inserting into a hashtable where there is a duplicate key ****/
 // In the case, the value is Copy type, you simply overwrite the duplicate value with no issue
@@ -87,7 +87,7 @@ owned_insert  :: #bake_values( owned = true );
 
 // Also, in the case of owned data, you prevent leaking memory by properly freeing in the data at the correct time. You don't have 
 // to pass around function pointers explicitly as well since they are carried through with the implicit context. Finally, the correct
-// allocator is also used because you can set the one you want to use at any context.
+// allocator is also used because you can set the one you want to use at any point within the program.
 
 // This was just an experimental first step into trying to make ownership more explicit. It is a far cry from the 
 // robustness provided by the Rust compiler, but it is definitely better than C and easier to handle than C++. For example, in the 

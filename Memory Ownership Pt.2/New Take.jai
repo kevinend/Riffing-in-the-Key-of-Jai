@@ -24,9 +24,9 @@ main :: () {
 
    owned_pointer: *int; @owned    // this note is added to the declaration which I can inspect later 
    owned_pointer = new( int );    // in the compiler message loop, look for the new procedure call and make sure
-                                     // identifier on the left is tagged with the @owned note, otherwise reject the program
+                                  // identifier on the left is tagged with the @owned note, otherwise reject the program
    free(owned_pointer);           // again, in the compiler message loop, look for free procedure and make sure it's argument
-                                      // is tagged with the @owned tag
+                                  // is tagged with the @owned tag
                                         
    return;
 }

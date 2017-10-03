@@ -50,4 +50,4 @@ Hashmap :: struct (Key_Type: type, Value_Type: type) {
 //      keys: [] Key_Type;
 //      values: [] Value_Type;
 
-// it is a less cumbersome away to represnt an array of structures as separate parallel arrays
+// it is a less cumbersome way to represnt an array of structures as separate parallel arrays
